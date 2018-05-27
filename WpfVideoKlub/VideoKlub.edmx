@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="VideoKlubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clan">
+          <Key>
+            <PropertyRef Name="ClanID" />
+          </Key>
+          <Property Name="ClanID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Prezime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Jmbg" Type="char" MaxLength="13" Nullable="false" />
+          <Property Name="Adresa" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Film">
+          <Key>
+            <PropertyRef Name="FilmID" />
+          </Key>
+          <Property Name="FilmID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NazivFilma" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Trajanje" Type="int" Nullable="false" />
+          <Property Name="Zanr" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Iznajmljivanje">
+          <Key>
+            <PropertyRef Name="IznajmljivanjeID" />
+          </Key>
+          <Property Name="IznajmljivanjeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FilmID" Type="int" Nullable="false" />
+          <Property Name="ClanID" Type="int" Nullable="false" />
+          <Property Name="DatumIznajmljivanja" Type="smalldatetime" Nullable="false" />
+          <Property Name="DatumVracanja" Type="smalldatetime" />
+          <Property Name="Cena" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <Association Name="FK__Iznajmlji__ClanI__15502E78">
+          <End Role="Clan" Type="Self.Clan" Multiplicity="1" />
+          <End Role="Iznajmljivanje" Type="Self.Iznajmljivanje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clan">
+              <PropertyRef Name="ClanID" />
+            </Principal>
+            <Dependent Role="Iznajmljivanje">
+              <PropertyRef Name="ClanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Iznajmlji__FilmI__145C0A3F">
+          <End Role="Film" Type="Self.Film" Multiplicity="1" />
+          <End Role="Iznajmljivanje" Type="Self.Iznajmljivanje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Film">
+              <PropertyRef Name="FilmID" />
+            </Principal>
+            <Dependent Role="Iznajmljivanje">
+              <PropertyRef Name="FilmID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="PrikaziIznajmljivanja" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="VideoKlubModelStoreContainer">
+          <EntitySet Name="Clan" EntityType="Self.Clan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Film" EntityType="Self.Film" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Iznajmljivanje" EntityType="Self.Iznajmljivanje" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Iznajmlji__ClanI__15502E78" Association="Self.FK__Iznajmlji__ClanI__15502E78">
+            <End Role="Clan" EntitySet="Clan" />
+            <End Role="Iznajmljivanje" EntitySet="Iznajmljivanje" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Iznajmlji__FilmI__145C0A3F" Association="Self.FK__Iznajmlji__FilmI__145C0A3F">
+            <End Role="Film" EntitySet="Film" />
+            <End Role="Iznajmljivanje" EntitySet="Iznajmljivanje" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VideoKlubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Clan">
+          <Key>
+            <PropertyRef Name="ClanID" />
+          </Key>
+          <Property Name="ClanID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Jmbg" Type="String" MaxLength="13" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Adresa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Iznajmljivanjes" Relationship="Self.FK__Iznajmlji__ClanI__15502E78" FromRole="Clan" ToRole="Iznajmljivanje" />
+        </EntityType>
+        <EntityType Name="Film">
+          <Key>
+            <PropertyRef Name="FilmID" />
+          </Key>
+          <Property Name="FilmID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NazivFilma" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Trajanje" Type="Int32" Nullable="false" />
+          <Property Name="Zanr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Iznajmljivanjes" Relationship="Self.FK__Iznajmlji__FilmI__145C0A3F" FromRole="Film" ToRole="Iznajmljivanje" />
+        </EntityType>
+        <EntityType Name="Iznajmljivanje">
+          <Key>
+            <PropertyRef Name="IznajmljivanjeID" />
+          </Key>
+          <Property Name="IznajmljivanjeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FilmID" Type="Int32" Nullable="false" />
+          <Property Name="ClanID" Type="Int32" Nullable="false" />
+          <Property Name="DatumIznajmljivanja" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DatumVracanja" Type="DateTime" Precision="0" />
+          <Property Name="Cena" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Clan" Relationship="Self.FK__Iznajmlji__ClanI__15502E78" FromRole="Iznajmljivanje" ToRole="Clan" />
+          <NavigationProperty Name="Film" Relationship="Self.FK__Iznajmlji__FilmI__145C0A3F" FromRole="Iznajmljivanje" ToRole="Film" />
+        </EntityType>
+        <Association Name="FK__Iznajmlji__ClanI__15502E78">
+          <End Role="Clan" Type="Self.Clan" Multiplicity="1" />
+          <End Role="Iznajmljivanje" Type="Self.Iznajmljivanje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clan">
+              <PropertyRef Name="ClanID" />
+            </Principal>
+            <Dependent Role="Iznajmljivanje">
+              <PropertyRef Name="ClanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Iznajmlji__FilmI__145C0A3F">
+          <End Role="Film" Type="Self.Film" Multiplicity="1" />
+          <End Role="Iznajmljivanje" Type="Self.Iznajmljivanje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Film">
+              <PropertyRef Name="FilmID" />
+            </Principal>
+            <Dependent Role="Iznajmljivanje">
+              <PropertyRef Name="FilmID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VideoKlubEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clans" EntityType="Self.Clan" />
+          <EntitySet Name="Films" EntityType="Self.Film" />
+          <EntitySet Name="Iznajmljivanjes" EntityType="Self.Iznajmljivanje" />
+          <AssociationSet Name="FK__Iznajmlji__ClanI__15502E78" Association="Self.FK__Iznajmlji__ClanI__15502E78">
+            <End Role="Clan" EntitySet="Clans" />
+            <End Role="Iznajmljivanje" EntitySet="Iznajmljivanjes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Iznajmlji__FilmI__145C0A3F" Association="Self.FK__Iznajmlji__FilmI__145C0A3F">
+            <End Role="Film" EntitySet="Films" />
+            <End Role="Iznajmljivanje" EntitySet="Iznajmljivanjes" />
+          </AssociationSet>
+          <FunctionImport Name="PrikaziIznajmljivanja" ReturnType="Collection(VideoKlubModel.PrikaziIznajmljivanja_Result)" />
+        </EntityContainer>
+        <ComplexType Name="PrikaziIznajmljivanja_Result">
+          <Property Type="Int32" Name="IznajmljivanjeID" Nullable="false" />
+          <Property Type="String" Name="NazivFilma" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Ime" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Prezime" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="DatumIznajmljivanja" Nullable="false" Precision="16" />
+          <Property Type="DateTime" Name="DatumVracanja" Nullable="true" Precision="16" />
+          <Property Type="Decimal" Name="Cena" Nullable="true" Precision="18" Scale="2" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VideoKlubModelStoreContainer" CdmEntityContainer="VideoKlubEntities">
+          <EntitySetMapping Name="Clans">
+            <EntityTypeMapping TypeName="VideoKlubModel.Clan">
+              <MappingFragment StoreEntitySet="Clan">
+                <ScalarProperty Name="ClanID" ColumnName="ClanID" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="Jmbg" ColumnName="Jmbg" />
+                <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Films">
+            <EntityTypeMapping TypeName="VideoKlubModel.Film">
+              <MappingFragment StoreEntitySet="Film">
+                <ScalarProperty Name="FilmID" ColumnName="FilmID" />
+                <ScalarProperty Name="NazivFilma" ColumnName="NazivFilma" />
+                <ScalarProperty Name="Trajanje" ColumnName="Trajanje" />
+                <ScalarProperty Name="Zanr" ColumnName="Zanr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Iznajmljivanjes">
+            <EntityTypeMapping TypeName="VideoKlubModel.Iznajmljivanje">
+              <MappingFragment StoreEntitySet="Iznajmljivanje">
+                <ScalarProperty Name="IznajmljivanjeID" ColumnName="IznajmljivanjeID" />
+                <ScalarProperty Name="FilmID" ColumnName="FilmID" />
+                <ScalarProperty Name="ClanID" ColumnName="ClanID" />
+                <ScalarProperty Name="DatumIznajmljivanja" ColumnName="DatumIznajmljivanja" />
+                <ScalarProperty Name="DatumVracanja" ColumnName="DatumVracanja" />
+                <ScalarProperty Name="Cena" ColumnName="Cena" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="PrikaziIznajmljivanja" FunctionName="VideoKlubModel.Store.PrikaziIznajmljivanja">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="VideoKlubModel.PrikaziIznajmljivanja_Result">
+                <ScalarProperty Name="IznajmljivanjeID" ColumnName="IznajmljivanjeID" />
+                <ScalarProperty Name="NazivFilma" ColumnName="NazivFilma" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="DatumIznajmljivanja" ColumnName="DatumIznajmljivanja" />
+                <ScalarProperty Name="DatumVracanja" ColumnName="DatumVracanja" />
+                <ScalarProperty Name="Cena" ColumnName="Cena" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

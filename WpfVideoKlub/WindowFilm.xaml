@@ -1,0 +1,25 @@
+﻿<Window x:Class="WpfVideoKlub.WindowFilm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Prikaz Filmova" Height="350" Width="600" Loaded="Window_Loaded">
+    <Grid Margin="0,0,0,-4">
+        <GroupBox Header="Film" HorizontalAlignment="Left" Margin="28,20,0,0" VerticalAlignment="Top" Height="221" Width="308" Name="groupBox1" IsEnabled="False">
+            <Grid>
+                <Label Content="Naziv" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,-0.538"/>
+                <Label Content="Trajanje" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top"/>
+                <Label Content="Zanr" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="74,29,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="180" Name="textBoxNaziv" />
+                <TextBox HorizontalAlignment="Left" Height="26" Margin="74,75,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="180" Name="textBoxTrajanje" />
+                <TextBox HorizontalAlignment="Left" Height="26" Margin="74,132,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="180" Name="textBoxZanr" />
+
+            </Grid>
+        </GroupBox>
+        <ListBox HorizontalAlignment="Left" Height="164" Margin="371,33,0,0" VerticalAlignment="Top" Width="167" Name="listBox1" SelectionChanged="listBox1_SelectionChanged"/>
+        <Button Content="Ubaci" HorizontalAlignment="Left" Margin="28,269,0,0" VerticalAlignment="Top" Width="75" Name="buttonUbaci" Click="buttonUbaci_Click" />
+        <Button Content="Promeni" HorizontalAlignment="Left" Margin="131,269,0,0" VerticalAlignment="Top" Width="75" Name="buttonPromeni" Click="buttonPromeni_Click"/>
+        <Button Content="Obrisi" HorizontalAlignment="Left" Margin="235,269,0,0" VerticalAlignment="Top" Width="75" Name="buttonObrisi" Click="buttonObrisi_Click" />
+
+
+
+    </Grid>
+</Window>
